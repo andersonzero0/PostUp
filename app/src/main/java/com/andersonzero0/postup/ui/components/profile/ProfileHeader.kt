@@ -104,7 +104,7 @@ fun ProfileHeader() {
                 ) {
 
                     Text(
-                        text = "Anderson Zero",
+                        text = "Anderson Viana",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
