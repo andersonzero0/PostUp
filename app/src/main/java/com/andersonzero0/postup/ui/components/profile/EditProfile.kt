@@ -41,14 +41,6 @@ fun EditProfile() {
             .imePadding()
             .verticalScroll(rememberScrollState())
     ) {
-        Text(
-            text = "Editar perfil",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,

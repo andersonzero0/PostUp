@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.andersonzero0.postup.ui.components.posts.PostList
 import com.andersonzero0.postup.ui.components.profile.ProfileHeader
 import com.andersonzero0.postup.ui.components.screen.Screen
 import kotlinx.coroutines.launch
@@ -13,9 +14,10 @@ fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
     Screen {
-
         Column {
-            ProfileHeader()
+            PostList(header = {
+                ProfileHeader()
+            })
         }
     }
 }

@@ -13,11 +13,13 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -64,30 +67,44 @@ fun ProfileHeader() {
 
         Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(topEnd = 12.dp, topStart = 12.dp))
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min)
-                .aspectRatio(ratio = 16f / 5f, matchHeightConstraintsFirst = true)
+                .aspectRatio(ratio = 16f / 4f, matchHeightConstraintsFirst = true)
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
                             MaterialTheme.colorScheme.primary,
-                            MaterialTheme.colorScheme.primaryContainer
+                            // Color do background
+                            MaterialTheme.colorScheme.background
                         ),
                     )
                 )
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = (-32).dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+//                verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                IconButton(onClick = { showBottomSheet = true }) {
+                    Icon(
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "Compartilhar",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(20.dp))
+
                 Image(
                     modifier = Modifier
                         .clip(RoundedCornerShape(100.dp))
@@ -95,45 +112,44 @@ fun ProfileHeader() {
                         .height(64.dp),
                     painter = painterResource(id = R.drawable.avatar),
                     contentScale = ContentScale.Crop,
-                    contentDescription = "img_header"
+                    contentDescription = "img_avatar"
                 )
 
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(20.dp))
 
-                Column(
-                ) {
-
-                    Text(
-                        text = "Anderson Viana",
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Text(
-                        text = "@andersonzero0",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                IconButton(onClick = { showBottomSheet = true }) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Editar perfil",
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
 
-            IconButton(onClick = { showBottomSheet = true }) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Editar perfil"
-                )
-            }
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Anderson Viana",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = "@andersonzero0",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
         }
+    }
 
 
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = { showBottomSheet = false },
-                sheetState = sheetState,
-                contentWindowInsets = { WindowInsets.ime },
-            ) {
-                EditProfile()
-            }
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            sheetState = sheetState,
+            contentWindowInsets = { WindowInsets.ime },
+        ) {
+            EditProfile()
         }
     }
 }

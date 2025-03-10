@@ -26,12 +26,14 @@ import androidx.navigation.compose.rememberNavController
 import com.andersonzero0.postup.ui.screen.home.HomeScreen
 import com.andersonzero0.postup.ui.theme.PostUpTheme
 import com.andersonzero0.postup.ui.components.navbar.Navbar
+import com.andersonzero0.postup.ui.route.Route.Search
 import com.andersonzero0.postup.ui.route.Route.Home
 import com.andersonzero0.postup.ui.route.Route.Profile
 import com.andersonzero0.postup.ui.route.Route.Settings
 import com.andersonzero0.postup.ui.route.navBarRoutes
 import com.andersonzero0.postup.ui.route.routes
 import com.andersonzero0.postup.ui.screen.profile.ProfileScreen
+import com.andersonzero0.postup.ui.screen.search.SearchScreen
 import com.andersonzero0.postup.ui.screen.settings.SettingsScreen
 
 class MainActivity : ComponentActivity() {
@@ -73,7 +75,7 @@ class MainActivity : ComponentActivity() {
                     },
 
                     bottomBar = {
-                        if (currentDestination?.route in listOf(Home.name, Profile.name)) {
+                        if (currentDestination?.route in listOf(Home.name, Profile.name, Search.name)) {
                             Navbar(navController, navBarRoutes)
                         }
                     }
@@ -93,6 +95,9 @@ class MainActivity : ComponentActivity() {
                             SettingsScreen(onNavigateBack = {
                                 navController.popBackStack()
                             })
+                        }
+                        composable(Search.name) {
+                            SearchScreen()
                         }
                     }
                 }
